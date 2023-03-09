@@ -23,11 +23,11 @@ def generate_data(plot=False):
 
 	rs = np.random.RandomState(RANDOM_SEED)
 
-	# generate 100-dimensional feature vector for 10,000 patients
+	# generate N_FEATURES-dimensional feature vector for N_PATIENTS
 	x = rs.randn(N_PATIENTS, N_FEATURES)
 
 	# generate coefficient vectors for events 1 and 2
-	u1, u2 = generate_vectors_by_similarity(rs, SIMILARITY)
+	u1, u2 = generate_vectors_by_similarity(rs, N_FEATURES, SIMILARITY)
 
 	# find logit offset that gives the desired event rate
 	offset = find_offset(
@@ -73,13 +73,13 @@ def generate_data(plot=False):
 	return x, e1, e2
 
 
-def generate_vectors_by_similarity(rs, s):
+def generate_vectors_by_similarity(rs, n, s):
 
 	# generate vector 1
-	u1 = normed_uniform(rs, N_FEATURES)
+	u1 = normed_uniform(rs, n)
 
 	# generate a second vector orthogonal to v1
-	u1_ = normed_uniform(rs, N_FEATURES)
+	u1_ = normed_uniform(rs, n)
 	u1_ = normalize(u1_ - u1 * np.dot(u1, u1_))
 
 	# generate coefficients for event 2
