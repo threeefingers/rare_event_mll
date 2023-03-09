@@ -78,11 +78,11 @@ def generate_vectors_by_similarity(rs, n, s):
 	# generate vector 1
 	u1 = normed_uniform(rs, n)
 
-	# generate a second vector orthogonal to v1
+	# generate a vector orthogonal to v1
 	u1_ = normed_uniform(rs, n)
 	u1_ = normalize(u1_ - u1 * np.dot(u1, u1_))
 
-	# generate coefficients for event 2
+	# generate vector 2
 	u2 = u1 * s + u1_ * (1 - s)
 
 	return u1, u2
